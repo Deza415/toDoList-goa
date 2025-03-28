@@ -1,0 +1,95 @@
+swagger: "2.0"
+info:
+    title: ""
+    version: 0.0.1
+host: localhost:80
+consumes:
+    - application/json
+    - application/xml
+    - application/gob
+produces:
+    - application/json
+    - application/xml
+    - application/gob
+paths:
+    /:
+        get:
+            tags:
+                - todo
+            summary: list todo
+            description: List all todo items
+            operationId: todo#list
+            responses:
+                "200":
+                    description: OK response.
+                    schema:
+                        type: array
+                        items:
+                            $ref: '#/definitions/Todo'
+            schemes:
+                - http
+        post:
+            tags:
+                - todo
+            summary: create todo
+            description: Create a new todo item
+            operationId: todo#create
+            parameters:
+                - name: CreateRequestBody
+                  in: body
+                  required: true
+                  schema:
+                    $ref: '#/definitions/TodoCreateRequestBody'
+                    required:
+                        - title
+            responses:
+                "200":
+                    description: OK response.
+                    schema:
+                        $ref: '#/definitions/Todo'
+                        required:
+                            - id
+                            - title
+                            - completed
+            schemes:
+                - http
+definitions:
+    Todo:
+        title: Todo
+        type: object
+        properties:
+            completed:
+                type: boolean
+                description: Whether the todo is completed
+                example: true
+            id:
+                type: integer
+                description: Unique ID
+                example: 1134671611
+                format: int32
+            title:
+                type: string
+                description: Title of the todo
+                example: Consequuntur sunt.
+        description: A single todo item
+        example:
+            completed: true
+            id: 893943688
+            title: Blanditiis iure voluptas.
+        required:
+            - id
+            - title
+            - completed
+    TodoCreateRequestBody:
+        title: TodoCreateRequestBody
+        type: object
+        properties:
+            title:
+                type: string
+                description: Title of the todo
+                example: nh
+                minLength: 1
+        example:
+            title: l
+        required:
+            - title
