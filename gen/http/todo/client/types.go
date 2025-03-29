@@ -12,13 +12,6 @@ import (
 	goa "goa.design/goa/v3/pkg"
 )
 
-// CreateRequestBody is the type of the "todo" service "create" endpoint HTTP
-// request body.
-type CreateRequestBody struct {
-	// Title of the todo
-	Title string `form:"title" json:"title" xml:"title"`
-}
-
 // ListResponseBody is the type of the "todo" service "list" endpoint HTTP
 // response body.
 type ListResponseBody []*TodoResponse
@@ -42,15 +35,6 @@ type TodoResponse struct {
 	Title *string `form:"title,omitempty" json:"title,omitempty" xml:"title,omitempty"`
 	// Whether the todo is completed
 	Completed *bool `form:"completed,omitempty" json:"completed,omitempty" xml:"completed,omitempty"`
-}
-
-// NewCreateRequestBody builds the HTTP request body from the payload of the
-// "create" endpoint of the "todo" service.
-func NewCreateRequestBody(p *todo.CreatePayload) *CreateRequestBody {
-	body := &CreateRequestBody{
-		Title: p.Title,
-	}
-	return body
 }
 
 // NewListTodoOK builds a "todo" service "list" endpoint result from a HTTP

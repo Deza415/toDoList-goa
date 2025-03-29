@@ -165,7 +165,7 @@ Create a new todo item
 
 Example:
     %[1]s todo create --body '{
-      "title": "0"
+      "title": "Minima mollitia accusantium ut quis voluptatem vel."
    }'
 `, os.Args[0])
 }

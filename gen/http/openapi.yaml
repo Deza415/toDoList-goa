@@ -35,13 +35,16 @@ paths:
             description: Create a new todo item
             operationId: todo#create
             parameters:
-                - name: CreateRequestBody
+                - name: object
                   in: body
                   required: true
                   schema:
-                    $ref: '#/definitions/TodoCreateRequestBody'
-                    required:
-                        - title
+                    type: object
+                    properties:
+                        title:
+                            type: string
+                            description: Title of the todo
+                            example: Cupiditate eaque nihil dolore corrupti odit.
             responses:
                 "200":
                     description: OK response.
@@ -65,31 +68,18 @@ definitions:
             id:
                 type: integer
                 description: Unique ID
-                example: 1134671611
+                example: 1888045106
                 format: int32
             title:
                 type: string
                 description: Title of the todo
-                example: Consequuntur sunt.
+                example: Adipisci eos vel.
         description: A single todo item
         example:
             completed: true
-            id: 893943688
-            title: Blanditiis iure voluptas.
+            id: 1873937695
+            title: Ut voluptatum molestias assumenda ea quia.
         required:
             - id
             - title
             - completed
-    TodoCreateRequestBody:
-        title: TodoCreateRequestBody
-        type: object
-        properties:
-            title:
-                type: string
-                description: Title of the todo
-                example: nh
-                minLength: 1
-        example:
-            title: l
-        required:
-            - title

@@ -103,7 +103,7 @@ func EncodeCreateRequest(encoder func(*http.Request) goahttp.Encoder) func(*http
 		if !ok {
 			return goahttp.ErrInvalidType("todo", "create", "*todo.CreatePayload", v)
 		}
-		body := NewCreateRequestBody(p)
+		body := p
 		if err := encoder(req).Encode(&body); err != nil {
 			return goahttp.ErrEncodingError("todo", "create", err)
 		}

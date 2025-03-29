@@ -46,7 +46,8 @@ func main() {
 		todoSvc todo.Service
 	)
 	{
-		todoSvc = todoapi.NewTodo()
+		todoSvc = todoapi.MyRealTodoService()
+
 	}
 
 	// Wrap the services in endpoints that can be invoked from other services

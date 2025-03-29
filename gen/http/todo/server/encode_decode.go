@@ -47,8 +47,11 @@ func EncodeCreateResponse(encoder func(context.Context, http.ResponseWriter) goa
 func DecodeCreateRequest(mux goahttp.Muxer, decoder func(*http.Request) goahttp.Decoder) func(*http.Request) (any, error) {
 	return func(r *http.Request) (any, error) {
 		var (
-			body CreateRequestBody
-			err  error
+			body struct {
+				// Title of the todo
+				Title *string `form:"title" json:"title" xml:"title"`
+			}
+			err error
 		)
 		err = decoder(r).Decode(&body)
 		if err != nil {
@@ -61,11 +64,13 @@ func DecodeCreateRequest(mux goahttp.Muxer, decoder func(*http.Request) goahttp.
 			}
 			return nil, goa.DecodePayloadError(err.Error())
 		}
-		err = ValidateCreateRequestBody(&body)
+		if body.Title == nil {
+			err = goa.MergeErrors(err, goa.MissingFieldError("title", "body"))
+		}
 		if err != nil {
 			return nil, err
 		}
-		payload := NewCreatePayload(&body)
+		payload := NewCreatePayload(body)
 
 		return payload, nil
 	}

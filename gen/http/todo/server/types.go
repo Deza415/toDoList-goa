@@ -8,18 +8,8 @@
 package server
 
 import (
-	"unicode/utf8"
-
 	todo "github.com/Deza415/toDoList-goa/gen/todo"
-	goa "goa.design/goa/v3/pkg"
 )
-
-// CreateRequestBody is the type of the "todo" service "create" endpoint HTTP
-// request body.
-type CreateRequestBody struct {
-	// Title of the todo
-	Title *string `form:"title,omitempty" json:"title,omitempty" xml:"title,omitempty"`
-}
 
 // ListResponseBody is the type of the "todo" service "list" endpoint HTTP
 // response body.
@@ -68,23 +58,14 @@ func NewCreateResponseBody(res *todo.Todo) *CreateResponseBody {
 }
 
 // NewCreatePayload builds a todo service create endpoint payload.
-func NewCreatePayload(body *CreateRequestBody) *todo.CreatePayload {
-	v := &todo.CreatePayload{
-		Title: *body.Title,
+func NewCreatePayload(body struct {
+	// Title of the todo
+	Title *string `form:"title" json:"title" xml:"title"`
+}) *todo.CreatePayload {
+	v := &todo.CreatePayload{}
+	if body.Title != nil {
+		v.Title = *body.Title
 	}
 
 	return v
-}
-
-// ValidateCreateRequestBody runs the validations defined on CreateRequestBody
-func ValidateCreateRequestBody(body *CreateRequestBody) (err error) {
-	if body.Title == nil {
-		err = goa.MergeErrors(err, goa.MissingFieldError("title", "body"))
-	}
-	if body.Title != nil {
-		if utf8.RuneCountInString(*body.Title) < 1 {
-			err = goa.MergeErrors(err, goa.InvalidLengthError("body.title", *body.Title, utf8.RuneCountInString(*body.Title), 1, true))
-		}
-	}
-	return
 }

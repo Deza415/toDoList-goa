@@ -15,15 +15,13 @@ var _ = Service("todo", func() {
 
 	Method("create", func() {
 		Description("Create a new todo item")
-		Payload(func() {
-			Field(1, "title", String, "Title of the todo", func() {
-				MinLength(1)
-			})
-			Required("title")
-		})
+		Payload(CreatePayload)
 		Result(Todo)
 		HTTP(func() {
 			POST("/")
+			Body(func() {
+				Attribute("title")
+			})
 		})
 	})
 })
@@ -34,4 +32,10 @@ var Todo = Type("Todo", func() {
 	Field(2, "title", String, "Title of the todo")
 	Field(3, "completed", Boolean, "Whether the todo is completed")
 	Required("id", "title", "completed")
+})
+
+var CreatePayload = Type("CreatePayload", func() {
+	Description("Payload for creating a todo item")
+	Field(1, "title", String, "Title of the todo")
+	Required("title")
 })

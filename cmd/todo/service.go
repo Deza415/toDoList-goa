@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/Deza415/toDoList-goa/gen/todo"
 )
@@ -20,6 +21,9 @@ func NewTodo() todo.Service {
 
 // Create adds a new todo
 func (s *todosrvc) Create(ctx context.Context, p *todo.CreatePayload) (*todo.Todo, error) {
+	fmt.Println("🔥 My real Create() was hit 🔥")
+	fmt.Println("Received title:", p.Title)
+
 	t := &todo.Todo{
 		ID:        nextID,
 		Title:     p.Title,

@@ -24,18 +24,24 @@ paths:
                                     $ref: '#/components/schemas/Todo'
                                 example:
                                     - completed: false
-                                      id: 1671529136
-                                      title: Laboriosam quibusdam.
+                                      id: 2015407015
+                                      title: Expedita doloribus consectetur dicta dolor totam aut.
                                     - completed: false
-                                      id: 1671529136
-                                      title: Laboriosam quibusdam.
+                                      id: 2015407015
+                                      title: Expedita doloribus consectetur dicta dolor totam aut.
                             example:
                                 - completed: false
-                                  id: 1671529136
-                                  title: Laboriosam quibusdam.
+                                  id: 2015407015
+                                  title: Expedita doloribus consectetur dicta dolor totam aut.
                                 - completed: false
-                                  id: 1671529136
-                                  title: Laboriosam quibusdam.
+                                  id: 2015407015
+                                  title: Expedita doloribus consectetur dicta dolor totam aut.
+                                - completed: false
+                                  id: 2015407015
+                                  title: Expedita doloribus consectetur dicta dolor totam aut.
+                                - completed: false
+                                  id: 2015407015
+                                  title: Expedita doloribus consectetur dicta dolor totam aut.
         post:
             tags:
                 - todo
@@ -47,9 +53,16 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/CreateRequestBody'
+                            type: object
+                            properties:
+                                title:
+                                    type: string
+                                    description: Title of the todo
+                                    example: Adipisci illo voluptatem doloribus veniam quia.
+                            example:
+                                title: Sit porro et.
                         example:
-                            title: "0"
+                            title: Molestiae molestias rem exercitationem vel officia consequatur.
             responses:
                 "200":
                     description: OK response.
@@ -58,21 +71,21 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/Todo'
                             example:
-                                completed: false
-                                id: 1827583355
-                                title: Dolor totam aut iusto repudiandae.
+                                completed: true
+                                id: 285460240
+                                title: Molestias non aperiam in.
 components:
     schemas:
-        CreateRequestBody:
+        CreatePayload:
             type: object
             properties:
                 title:
                     type: string
                     description: Title of the todo
-                    example: z6
-                    minLength: 1
+                    example: Voluptatibus cum.
+            description: Payload for creating a todo item
             example:
-                title: "1"
+                title: Quasi magni dolor quia et.
             required:
                 - title
         Todo:
@@ -81,21 +94,21 @@ components:
                 completed:
                     type: boolean
                     description: Whether the todo is completed
-                    example: false
+                    example: true
                 id:
                     type: integer
                     description: Unique ID
-                    example: 2049882206
+                    example: 1098934177
                     format: int32
                 title:
                     type: string
                     description: Title of the todo
-                    example: Quasi facere.
+                    example: Itaque eveniet consequatur aut ipsam et.
             description: A single todo item
             example:
-                completed: false
-                id: 395025621
-                title: Accusantium ut quis voluptatem vel libero.
+                completed: true
+                id: 426022961
+                title: Fugiat cumque ab iure dolore.
             required:
                 - id
                 - title

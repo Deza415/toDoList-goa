@@ -10,31 +10,27 @@ package client
 import (
 	"encoding/json"
 	"fmt"
-	"unicode/utf8"
 
 	todo "github.com/Deza415/toDoList-goa/gen/todo"
-	goa "goa.design/goa/v3/pkg"
 )
 
 // BuildCreatePayload builds the payload for the todo create endpoint from CLI
 // flags.
 func BuildCreatePayload(todoCreateBody string) (*todo.CreatePayload, error) {
 	var err error
-	var body CreateRequestBody
+	var body struct {
+		// Title of the todo
+		Title *string `form:"title" json:"title" xml:"title"`
+	}
 	{
 		err = json.Unmarshal([]byte(todoCreateBody), &body)
 		if err != nil {
-			return nil, fmt.Errorf("invalid JSON for body, \nerror: %s, \nexample of valid JSON:\n%s", err, "'{\n      \"title\": \"0\"\n   }'")
-		}
-		if utf8.RuneCountInString(body.Title) < 1 {
-			err = goa.MergeErrors(err, goa.InvalidLengthError("body.title", body.Title, utf8.RuneCountInString(body.Title), 1, true))
-		}
-		if err != nil {
-			return nil, err
+			return nil, fmt.Errorf("invalid JSON for body, \nerror: %s, \nexample of valid JSON:\n%s", err, "'{\n      \"title\": \"Minima mollitia accusantium ut quis voluptatem vel.\"\n   }'")
 		}
 	}
-	v := &todo.CreatePayload{
-		Title: body.Title,
+	v := &todo.CreatePayload{}
+	if body.Title != nil {
+		v.Title = *body.Title
 	}
 
 	return v, nil
